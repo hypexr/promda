@@ -1,0 +1,32 @@
+{
+  "name": "promda",
+  "version": "0.1.0",
+  "description": "A ramda companion library to simplify working with promises",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hypexr/promda"
+  },
+  "author": "fbsgreenglow",
+  "license": "MIT",
+  "homepage": "https://github.com/hypexr/promda",
+  "dependencies": {
+    "ramda": "^0.26.1"
+  },
+  "devDependencies": {
+    "eslint": "^5.15.3",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-react": "^7.12.4",
+    "eslint-plugin-standard": "^4.0.0",
+    "jest": "^24.5.0"
+  },
+  "scripts": {
+    "test": "npx jest --coverage",
+    "lint": "npx eslint ."
+  }
+}
