@@ -1,5 +1,5 @@
-//const map = require('./lib/map');
-//const compose = require('./lib/compose');
+// const map = require('./lib/map');
+// const compose = require('./lib/compose');
 const P = require('./lib/promda');
 
 module.exports = {
