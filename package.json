@@ -1,6 +1,6 @@
 {
   "name": "promda",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A ramda companion library to simplify working with promises",
   "main": "index.js",
   "repository": {
