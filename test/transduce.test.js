@@ -102,3 +102,24 @@ test('Use R.reduced to stop transduce', async () => {
   const result = await P.transduce (testTransducer, testFn, [], testValues);
   expect(result).toStrictEqual([2, 3]);
 });
+
+test('Transduce async transform function with async iterator', async () => {
+  const testTransducer = R.map (R.inc);
+  const testFn = async (acc, x) => {
+    return R.append (await x, acc);
+  };
+
+  /* eslint-disable func-names */
+  const testAsyncGenerator = (async function* () {
+    yield 1;
+    yield 2;
+    yield 3;
+    yield 4;
+    yield 5;
+  });
+  /* eslint-enable func-names */
+
+  const testAsyncIterator = testAsyncGenerator();
+  const result = await P.transduce (testTransducer, testFn, [], testAsyncIterator);
+  expect(result).toStrictEqual([2, 3, 4, 5, 6]);
+});

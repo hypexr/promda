@@ -32,3 +32,23 @@ test('Map async iterator', async () => {
   const result = await P.map (testFn, testAsyncIterator);
   expect(result).toStrictEqual([2, 3, 4, 5, 6]);
 });
+
+test('Map async function with async iterator', async () => {
+  const testFn = (v) => new Promise ((resolve) => {
+    resolve (R.inc (v));
+  });
+
+  /* eslint-disable func-names */
+  const testAsyncGenerator = (async function* () {
+    yield 1;
+    yield 2;
+    yield 3;
+    yield 4;
+    yield 5;
+  });
+  /* eslint-enable func-names */
+
+  const testAsyncIterator = testAsyncGenerator();
+  const result = await P.map (testFn, testAsyncIterator);
+  expect(result).toStrictEqual([2, 3, 4, 5, 6]);
+});
