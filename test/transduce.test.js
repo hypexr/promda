@@ -123,3 +123,29 @@ test('Transduce async transform function with async iterator', async () => {
   const result = await P.transduce (testTransducer, testFn, [], testAsyncIterator);
   expect(result).toStrictEqual([2, 3, 4, 5, 6]);
 });
+
+test('Transduce preserves transducer reduced', async () => {
+  const testTransducer = R.compose (
+    R.map (
+      P.preservingReduced (
+        R.ifElse (
+          R.equals (1),
+          R.inc,
+          R.reduced,
+        ),
+      ),
+    ),
+    R.map (
+      P.preservingReduced (
+        R.when (
+          R.equals (2),
+          R.inc,
+        ),
+      ),
+    ),
+  );
+  const testValues = [1, 2, 3, 4, 5];
+  const testFn = R.flip (R.append);
+  const result = await P.transduce (testTransducer, testFn, [], testValues);
+  expect(result).toStrictEqual([3]);
+});

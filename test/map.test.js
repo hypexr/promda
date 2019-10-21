@@ -52,3 +52,14 @@ test('Map async function with async iterator', async () => {
   const result = await P.map (testFn, testAsyncIterator);
   expect(result).toStrictEqual([2, 3, 4, 5, 6]);
 });
+
+test('Map observes reduced', async () => {
+  const testFn = R.ifElse (
+    R.equals (1),
+    R.inc,
+    R.reduced,
+  );
+  const testValues = [1, 2, 3, 4, 5];
+  const result = await P.map (testFn, testValues);
+  expect(result).toStrictEqual([2]);
+});
