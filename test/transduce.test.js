@@ -128,10 +128,9 @@ test('Transduce preserves transducer reduced', async () => {
   const testTransducer = R.compose (
     R.map (
       P.preservingReduced (
-        R.ifElse (
-          R.equals (1),
+        R.compose (
+          R.when (R.equals (3), R.reduced),
           R.inc,
-          R.reduced,
         ),
       ),
     ),
@@ -147,5 +146,5 @@ test('Transduce preserves transducer reduced', async () => {
   const testValues = [1, 2, 3, 4, 5];
   const testFn = R.flip (R.append);
   const result = await P.transduce (testTransducer, testFn, [], testValues);
-  expect(result).toStrictEqual([3]);
+  expect(result).toStrictEqual([3, 3]);
 });
