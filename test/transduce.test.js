@@ -125,19 +125,19 @@ test('Transduce async transform function with async iterator', async () => {
 });
 
 test('Transduce preserves transducer reduced', async () => {
-  const testTransducer = R.compose (
+  const testTransducer = P.composeTransducer (
     R.map (
       P.preservingReduced (
-        R.compose (
-          R.when (R.equals (3), R.reduced),
+        R.when (
+          R.equals (2),
           R.inc,
         ),
       ),
     ),
     R.map (
       P.preservingReduced (
-        R.when (
-          R.equals (2),
+        R.compose (
+          R.when (R.equals (3), R.reduced),
           R.inc,
         ),
       ),
