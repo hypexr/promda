@@ -44,7 +44,7 @@ test('groupWith transduce removes result reduced', async () => {
       R.when (
         R.compose (
           R.gte (1),
-          R.head
+          R.head,
         ),
         R.reduced,
       ),
