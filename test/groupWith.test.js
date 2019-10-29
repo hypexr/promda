@@ -59,3 +59,21 @@ test('groupWith transduce removes result reduced', async () => {
   );
   expect(result).toStrictEqual([[2, 3], [2], [1], [0]]);
 });
+
+test('groupWith transduce uses transform result', async () => {
+  const testData = [1, 2, 3, 2, 1, 0];
+  const testTransducer = P.groupWith (R.lte);
+  const result = await P.transduce (
+    testTransducer,
+    P.transforms.transform (
+      R.flip (R.append),
+      R.compose (
+        R.map (R.inc),
+        R.flatten,
+      ),
+    ),
+    [],
+    testData,
+  );
+  expect(result).toStrictEqual([2, 3, 4, 3, 2, 1]);
+});
