@@ -1,9 +1,9 @@
 const R = require('ramda');
-const P = require('../index');
+const P = require('../../index');
 
 test('groupWith transduce with empty data', async () => {
   const testData = [];
-  const testTransducer = P.groupWith (R.lte);
+  const testTransducer = P.transforms.groupWith (R.lte);
   const result = await P.transduce (
     testTransducer,
     R.flip (R.append),
@@ -15,7 +15,7 @@ test('groupWith transduce with empty data', async () => {
 
 test('groupWith transduce with small data', async () => {
   const testData = [1];
-  const testTransducer = P.groupWith (R.lte);
+  const testTransducer = P.transforms.groupWith (R.lte);
   const result = await P.transduce (
     testTransducer,
     R.flip (R.append),
@@ -27,7 +27,7 @@ test('groupWith transduce with small data', async () => {
 
 test('groupWith transduce', async () => {
   const testData = [1, 2, 3, 2, 1, 0];
-  const testTransducer = P.groupWith (R.lte);
+  const testTransducer = P.transforms.groupWith (R.lte);
   const result = await P.transduce (
     testTransducer,
     R.flip (R.append),
@@ -49,7 +49,7 @@ test('groupWith transduce removes result reduced', async () => {
         R.reduced,
       ),
     ),
-    P.groupWith (R.lte),
+    P.transforms.groupWith (R.lte),
   );
   const result = await P.transduce (
     testTransducer,
@@ -62,7 +62,7 @@ test('groupWith transduce removes result reduced', async () => {
 
 test('groupWith transduce uses transform result', async () => {
   const testData = [1, 2, 3, 2, 1, 0];
-  const testTransducer = P.groupWith (R.lte);
+  const testTransducer = P.transforms.groupWith (R.lte);
   const result = await P.transduce (
     testTransducer,
     P.transforms.transform (
