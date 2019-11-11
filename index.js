@@ -1,6 +1,5 @@
 const compose = require('./lib/compose');
 const composeTransducer = require('./lib/composeTransducer');
-const groupWith = require('./lib/groupWith');
 const head = require('./lib/head');
 const map = require('./lib/map');
 const mapConcurrent = require('./lib/mapConcurrent');
@@ -16,7 +15,6 @@ module.exports = {
   compose: compose.compose,
   composeTransducer: composeTransducer.composeTransducer,
   head: head.head,
-  groupWith: groupWith.groupWith,
   map: map.map,
   mapConcurrent: mapConcurrent.mapConcurrent,
   preservingReduced: preservingReduced.preservingReduced,
