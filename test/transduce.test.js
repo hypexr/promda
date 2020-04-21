@@ -28,7 +28,7 @@ test('Transduce array of values with box transformer', async () => {
 
 test('Transduce array of promises with async transform step', async () => {
   const testTransducer = R.map (
-    R.then (
+    R.andThen (
       R.compose (
         R.reduce (R.concat, ''),
         R.append (R.__, '*'),
