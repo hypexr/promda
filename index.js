@@ -3,6 +3,8 @@ const composeTransducer = require('./lib/composeTransducer');
 const head = require('./lib/head');
 const map = require('./lib/map');
 const mapConcurrent = require('./lib/mapConcurrent');
+const pipe = require('./lib/pipe');
+const pipeTransducer = require('./lib/pipeTransducer');
 const preservingReduced = require('./lib/preservingReduced');
 const promiseAll = require('./lib/promiseAll');
 const reduce = require('./lib/reduce');
@@ -17,6 +19,8 @@ module.exports = {
   head: head.head,
   map: map.map,
   mapConcurrent: mapConcurrent.mapConcurrent,
+  pipe: pipe.pipe,
+  pipeTransducer: pipeTransducer.pipeTransducer,
   preservingReduced: preservingReduced.preservingReduced,
   promiseAll: promiseAll.promiseAll,
   reduce: reduce.reduce,
