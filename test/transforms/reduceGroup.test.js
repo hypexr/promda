@@ -101,6 +101,37 @@ test('reduceGroup transduce removes result reduced', async () => {
   expect(result).toStrictEqual ([{ testKey: [2, 3] }, { testKey: [2] }, { testKey: [1] }, { testKey: [0] }]);
 });
 
+test('reduceGroup transduce observes reduced', async () => {
+  const testData = [1, 2, 3, 4];
+  const testValueFn = ((acc, x) => {
+    acc.push(x);
+    return acc;
+  });
+  const testCompFn = ((acc) => {
+    if (R.isEmpty (acc)) {
+      return true;
+    }
+    return R.length (acc) + 1 < 3;
+  });
+  const testTransducer = P.pipeTransducer (
+    R.map (R.inc),
+    R.map (
+      R.when (
+        R.equals (4),
+        R.reduced,
+      ),
+    ),
+    P.transforms.reduceGroup (testValueFn, [], testCompFn),
+  );
+  const result = await P.transduce (
+    testTransducer,
+    R.flip (R.append),
+    [],
+    testData,
+  );
+  expect(result).toStrictEqual([[2, 3], [4]]);
+});
+
 test('reduceGroup transduce uses transform result', async () => {
   const testData = [1, 2, 3, 2, 1, 0];
   const key = 'testKey';
