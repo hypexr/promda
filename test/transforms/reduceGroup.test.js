@@ -14,7 +14,7 @@ test('reduceGroup transduce with empty data', async () => {
     return R.lte (R.last (acc), x);
   };
   const testTransducer = P.transforms.reduceGroup (testValueFn, [], testCompFn);
-  const result = await P.transduce (
+  const result = R.transduce (
     testTransducer,
     R.flip (R.append),
     [],
@@ -36,7 +36,7 @@ test('reduceGroup transduce with small data', async () => {
     return R.lte (R.last (acc[key]), x);
   };
   const testTransducer = P.transforms.reduceGroup (testValueFn, { [key]: [] }, testCompFn);
-  const result = await P.transduce (
+  const result = R.transduce (
     testTransducer,
     R.flip (R.append),
     [],
@@ -58,7 +58,7 @@ test('reduceGroup transduce', async () => {
     return R.lte (R.last (acc[key]), x);
   };
   const testTransducer = P.transforms.reduceGroup (testValueFn, { [key]: [] }, testCompFn);
-  const result = await P.transduce (
+  const result = R.transduce (
     testTransducer,
     R.flip (R.append),
     [],
@@ -92,9 +92,10 @@ test('reduceGroup transduce removes result reduced', async () => {
     ),
     P.transforms.reduceGroup (testValueFn, { [key]: [] }, testCompFn),
   );
+  // const result = R.transduce (
   const result = await P.transduce (
     testTransducer,
-    R.flip (R.append),
+    P.transforms.preservingReducedWrap (R.flip (R.append)),
     [],
     testData,
   );
@@ -123,7 +124,7 @@ test('reduceGroup transduce observes reduced', async () => {
     ),
     P.transforms.reduceGroup (testValueFn, [], testCompFn),
   );
-  const result = await P.transduce (
+  const result = R.transduce (
     testTransducer,
     R.flip (R.append),
     [],
@@ -145,7 +146,7 @@ test('reduceGroup transduce uses transform result', async () => {
     return R.lte (R.last (acc[key]), x);
   };
   const testTransducer = P.transforms.reduceGroup (testValueFn, { [key]: [] }, testCompFn);
-  const result = await P.transduce (
+  const result = R.transduce (
     testTransducer,
     P.transforms.transform (
       R.flip (R.append),
