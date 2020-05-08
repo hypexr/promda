@@ -4,7 +4,7 @@ const P = require('../../index');
 test('partitionEvery transduce with empty data', async () => {
   const testData = [];
   const testTransducer = P.transforms.partitionEvery (10);
-  const result = await P.transduce (
+  const result = R.transduce (
     testTransducer,
     R.flip (R.append),
     [],
@@ -16,7 +16,7 @@ test('partitionEvery transduce with empty data', async () => {
 test('partitionEvery transduce, single partition', async () => {
   const testData = [1, 2, 3];
   const testTransducer = P.transforms.partitionEvery (3);
-  const result = await P.transduce (
+  const result = R.transduce (
     testTransducer,
     R.flip (R.append),
     [],
@@ -28,7 +28,7 @@ test('partitionEvery transduce, single partition', async () => {
 test('partitionEvery transduce, multiple partitions', async () => {
   const testData = [1, 2, 3];
   const testTransducer = P.transforms.partitionEvery (2);
-  const result = await P.transduce (
+  const result = R.transduce (
     testTransducer,
     R.flip (R.append),
     [],
@@ -48,7 +48,7 @@ test('partitionEvery transduce, single partition, observes reduced', async () =>
     ),
     P.transforms.partitionEvery (3),
   );
-  const result = await P.transduce (
+  const result = R.transduce (
     testTransducer,
     R.flip (R.append),
     [],
@@ -68,7 +68,7 @@ test('partitionEvery transduce, multiple partitions, observes reduced', async ()
     ),
     P.transforms.partitionEvery (2),
   );
-  const result = await P.transduce (
+  const result = R.transduce (
     testTransducer,
     R.flip (R.append),
     [],
