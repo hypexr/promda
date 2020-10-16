@@ -1,3 +1,4 @@
+const applySpec = require('./lib/applySpec');
 const compose = require('./lib/compose');
 const composeTransducer = require('./lib/composeTransducer');
 const head = require('./lib/head');
@@ -14,6 +15,7 @@ const transduce = require('./lib/transduce');
 const transforms = require('./lib/transforms');
 
 module.exports = {
+  applySpec: applySpec.applySpec,
   compose: compose.compose,
   composeTransducer: composeTransducer.composeTransducer,
   head: head.head,
