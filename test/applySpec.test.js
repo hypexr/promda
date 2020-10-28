@@ -70,3 +70,13 @@ test ('ApplySpec', async () => {
     },
   });
 });
+
+test ('ApplySpec multiple invocations', async () => {
+  const result = await P.map (
+    P.applySpec ({ a: R.always ('test') }),
+  ) ([1, 2]);
+  expect (result).toStrictEqual ([
+    { a: 'test' },
+    { a: 'test' },
+  ]);
+});
