@@ -11,6 +11,7 @@ const promiseAll = require('./lib/promiseAll');
 const reduce = require('./lib/reduce');
 const reject = require('./lib/reject');
 const take = require('./lib/take');
+const tap = require('./lib/tap');
 const transduce = require('./lib/transduce');
 const transforms = require('./lib/transforms');
 
@@ -28,6 +29,7 @@ module.exports = {
   reduce: reduce.reduce,
   reject: reject.reject,
   take: take.take,
+  tap: tap.tap,
   transduce: transduce.transduce,
   transforms,
 };

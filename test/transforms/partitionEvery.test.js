@@ -76,3 +76,24 @@ test('partitionEvery transduce, multiple partitions, observes reduced', async ()
   );
   expect(result).toStrictEqual([[1, 2], [3]]);
 });
+
+test('partitionEvery transduce, multiple partitions, propogates reduced', async () => {
+  const testData = [1, 2, 3, 4];
+  const testTransducer = P.pipeTransducer (
+    R.map (
+      R.when (
+        R.equals (3),
+        R.reduced,
+      ),
+    ),
+    P.transforms.partitionEvery (2),
+    P.transforms.partitionEvery (10),
+  );
+  const result = R.transduce (
+    testTransducer,
+    R.flip (R.append),
+    [],
+    testData,
+  );
+  expect(result).toStrictEqual([[[1, 2], [3]]]);
+});
