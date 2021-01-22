@@ -14,6 +14,7 @@ const take = require('./lib/take');
 const tap = require('./lib/tap');
 const transduce = require('./lib/transduce');
 const transforms = require('./lib/transforms');
+const tryCatch = require('./lib/tryCatch');
 
 module.exports = {
   applySpec: applySpec.applySpec,
@@ -32,4 +33,5 @@ module.exports = {
   tap: tap.tap,
   transduce: transduce.transduce,
   transforms,
+  tryCatch: tryCatch.tryCatch,
 };
