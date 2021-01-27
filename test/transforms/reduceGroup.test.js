@@ -13,7 +13,7 @@ test('reduceGroup transduce with empty data', async () => {
     }
     return R.lte (R.last (acc), x);
   };
-  const testTransducer = P.transforms.reduceGroup (testValueFn, [], testCompFn);
+  const testTransducer = P.transforms.reduceGroup (testValueFn, () => ([]), R.identity, [], testCompFn);
   const result = R.transduce (
     testTransducer,
     R.flip (R.append),
@@ -35,7 +35,7 @@ test('reduceGroup transduce with small data', async () => {
     }
     return R.lte (R.last (acc[key]), x);
   };
-  const testTransducer = P.transforms.reduceGroup (testValueFn, { [key]: [] }, testCompFn);
+  const testTransducer = P.transforms.reduceGroup (testValueFn, () => ({ [key]: [] }), R.identity, { [key]: [] }, testCompFn);
   const result = R.transduce (
     testTransducer,
     R.flip (R.append),
@@ -57,7 +57,7 @@ test('reduceGroup transduce', async () => {
     }
     return R.lte (R.last (acc[key]), x);
   };
-  const testTransducer = P.transforms.reduceGroup (testValueFn, { [key]: [] }, testCompFn);
+  const testTransducer = P.transforms.reduceGroup (testValueFn, () => ({ [key]: [] }), R.identity, { [key]: [] }, testCompFn);
   const result = R.transduce (
     testTransducer,
     R.flip (R.append),
@@ -90,7 +90,7 @@ test('reduceGroup transduce removes result reduced', async () => {
         R.reduced,
       ),
     ),
-    P.transforms.reduceGroup (testValueFn, { [key]: [] }, testCompFn),
+    P.transforms.reduceGroup (testValueFn, () => ({ [key]: [] }), R.identity, { [key]: [] }, testCompFn),
   );
   const result = R.transduce (
     testTransducer,
@@ -121,7 +121,7 @@ test('reduceGroup transduce observes reduced', async () => {
         R.reduced,
       ),
     ),
-    P.transforms.reduceGroup (testValueFn, [], testCompFn),
+    P.transforms.reduceGroup (testValueFn, () => ([]), R.identity, [], testCompFn),
   );
   const result = R.transduce (
     testTransducer,
@@ -144,7 +144,7 @@ test('reduceGroup transduce uses transform result', async () => {
     }
     return R.lte (R.last (acc[key]), x);
   };
-  const testTransducer = P.transforms.reduceGroup (testValueFn, { [key]: [] }, testCompFn);
+  const testTransducer = P.transforms.reduceGroup (testValueFn, () => ({ [key]: [] }), R.identity, { [key]: [] }, testCompFn);
   const result = R.transduce (
     testTransducer,
     P.transforms.transform (
