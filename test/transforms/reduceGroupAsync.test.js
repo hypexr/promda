@@ -13,7 +13,7 @@ test('reduceGroupAsync transduce with empty data', async () => {
     }
     return R.lte (R.last (acc), x);
   };
-  const testTransducer = P.transforms.reduceGroupAsync (testValueFn, () => ([]), R.identity, [], testCompFn);
+  const testTransducer = P.transforms.reduceGroupAsync (testValueFn, () => ([]), R.identity, R.identity, [], testCompFn);
   const result = await P.transduce (
     testTransducer,
     R.flip (R.append),
@@ -35,7 +35,14 @@ test('reduceGroupAsync transduce with small data', async () => {
     }
     return R.lte (R.last (acc[key]), x);
   };
-  const testTransducer = P.transforms.reduceGroupAsync (testValueFn, () => ({ [key]: [] }), R.identity, { [key]: [] }, testCompFn);
+  const testTransducer = P.transforms.reduceGroupAsync (
+    testValueFn,
+    () => ({ [key]: [] }),
+    R.identity,
+    R.identity,
+    { [key]: [] },
+    testCompFn,
+  );
   const result = await P.transduce (
     testTransducer,
     R.flip (R.append),
@@ -57,7 +64,14 @@ test('reduceGroupAsync transduce', async () => {
     }
     return R.lte (R.last (acc[key]), x);
   };
-  const testTransducer = P.transforms.reduceGroupAsync (testValueFn, () => ({ [key]: [] }), R.identity, { [key]: [] }, testCompFn);
+  const testTransducer = P.transforms.reduceGroupAsync (
+    testValueFn,
+    () => ({ [key]: [] }),
+    R.identity,
+    R.identity,
+    { [key]: [] },
+    testCompFn,
+  );
   const result = await P.transduce (
     testTransducer,
     R.flip (R.append),
@@ -90,7 +104,14 @@ test('reduceGroupAsync transduce removes result reduced', async () => {
         R.reduced,
       ),
     ),
-    P.transforms.reduceGroupAsync (testValueFn, () => ({ [key]: [] }), R.identity, { [key]: [] }, testCompFn),
+    P.transforms.reduceGroupAsync (
+      testValueFn,
+      () => ({ [key]: [] }),
+      R.identity,
+      R.identity,
+      { [key]: [] },
+      testCompFn,
+    ),
   );
   const result = await P.transduce (
     testTransducer,
@@ -121,7 +142,7 @@ test('reduceGroupAsync transduce observes reduced', async () => {
         R.reduced,
       ),
     ),
-    P.transforms.reduceGroupAsync (testValueFn, () => ([]), R.identity, [], testCompFn),
+    P.transforms.reduceGroupAsync (testValueFn, () => ([]), R.identity, R.identity, [], testCompFn),
   );
   const result = await P.transduce (
     testTransducer,
@@ -144,7 +165,14 @@ test('reduceGroupAsync transduce uses transform result', async () => {
     }
     return R.lte (R.last (acc[key]), x);
   };
-  const testTransducer = P.transforms.reduceGroupAsync (testValueFn, () => ({ [key]: [] }), R.identity, { [key]: [] }, testCompFn);
+  const testTransducer = P.transforms.reduceGroupAsync (
+    testValueFn,
+    () => ({ [key]: [] }),
+    R.identity,
+    R.identity,
+    { [key]: [] },
+    testCompFn,
+  );
   const result = await P.transduce (
     testTransducer,
     P.transforms.transform (
